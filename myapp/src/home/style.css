@@ -718,8 +718,8 @@ html, body {
 .infoCard {
     background: white;
     border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 25px;
+    border-radius: 12px;
+    padding: 30px;
     text-align: center;
 }
 
@@ -747,8 +747,9 @@ html, body {
 }
 
 .form {
-    max-width: 600px;
+    max-width: 820px;
     margin: 0 auto;
+    padding: 10px;
 }
 
 .formGroup {

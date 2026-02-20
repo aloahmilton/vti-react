@@ -132,18 +132,18 @@ function Contact() {
             <section className="contactInfo">
                 <div className="infoCard">
                     <div className="infoIcon">📍</div>
-                    <h3>Address</h3>
-                    <p>123 Tech Street<br />San Francisco, CA 94105</p>
+                    <h3>Location</h3>
+                    <p>Yadoude, Biyassii<br />Cameroon</p>
                 </div>
                 <div className="infoCard">
                     <div className="infoIcon">📧</div>
                     <h3>Email</h3>
-                    <p>hello@reactexamples.com</p>
+                    <p><a href="mailto:aloahmilton9@gmail.com">aloahmilton9@gmail.com</a></p>
                 </div>
                 <div className="infoCard">
                     <div className="infoIcon">📞</div>
-                    <h3>Phone</h3>
-                    <p>+1 (555) 123-4567</p>
+                    <h3>Phone / WhatsApp</h3>
+                    <p><a href="tel:+237675405180">+237 675 405 180</a><br /><a href="https://wa.me/237675405180" target="_blank" rel="noreferrer">Message on WhatsApp</a></p>
                 </div>
             </section>
 
@@ -219,7 +219,7 @@ function Contact() {
                                 onChange={handleInputChange}
                                 className={`input textarea ${errors.message ? 'inputError' : ''}`}
                                 placeholder="Write your message here..."
-                                rows={5}
+                                rows={8}
                             />
                             {errors.message && <span className="errorMessage">{errors.message}</span>}
                         </div>
@@ -240,10 +240,7 @@ function Contact() {
                         <h3>How quickly will I get a response?</h3>
                         <p>We typically respond within 24-48 hours during business days.</p>
                     </div>
-                    <div className="faqItem">
-                        <h3>Do you offer refunds?</h3>
-                        <p>Yes, we offer a 30-day money-back guarantee on all our services.</p>
-                    </div>
+                    
                     <div className="faqItem">
                         <h3>Can I get a custom quote?</h3>
                         <p>Absolutely! Fill out the contact form and we'll get back to you with a custom quote.</p>
