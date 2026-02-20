@@ -56,7 +56,7 @@ function HomePage() {
             }}>
                 <div style={{ maxWidth: '900px' }}>
                     <h1 className="title" style={{ fontSize: 'clamp(2rem, 6vw, 4.5rem)', fontWeight: '900', letterSpacing: '-0.05em' }}>
-                        Aloah Milton Academy
+                        Aloah Milton 
                     </h1>
                     <p className="subtitle" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.75rem)', fontWeight: '500', lineHeight: '1.4', marginTop: '24px' }}>
                         High-performance engineering education. Master the tools that power the modern web.
