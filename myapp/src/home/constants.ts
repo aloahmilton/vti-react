@@ -15,7 +15,22 @@ export interface Course {
     pages: PageInfo[];
 }
 
+export const CONTACT_INFO = {
+    whatsapp: '675405180',
+    email: 'aloahmilton9@gmail.com'
+};
+
 export const courses: Course[] = [
+    {
+        id: 'github',
+        name: 'GitHub',
+        icon: 'Github',
+        pages: [
+            { name: 'Git Basics', path: '/github/basics', icon: 'Code' },
+            { name: 'Repositories', path: '/github/repos', icon: 'Box' },
+            { name: 'Collaboration', path: '/github/collab', icon: 'Target' }
+        ]
+    },
     {
         id: 'react',
         name: 'React',

@@ -43,7 +43,7 @@ import Contact from './Contact';
 import ReactFunctionsGuide from './ReactFunctionsGuide';
 import ReactRouterGuide from './ReactRouterGuide';
 import GenericLesson from './GenericLesson';
-import { courses } from './constants';
+import { courses, CONTACT_INFO } from './constants';
 import { useProgress } from './useProgress';
 import './style.css';
 
@@ -196,6 +196,30 @@ function HomeRoutes() {
     return (
         <Routes>
             <Route path="/" element={<HomePage />} />
+
+            {/* GitHub Course */}
+            <Route path="/github/basics" element={<GenericLesson
+                title="Git Basics" subject="GitHub" path="/github/basics" nextPath="/github/repos"
+                content="Learn the core concepts of version control: commits, staging, and branching."
+                quizQuestion="Which command is used to record changes to the repository?"
+                quizOptions={["git push", "git save", "git commit", "git record"]}
+                quizCorrectAnswer={2}
+            />} />
+            <Route path="/github/repos" element={<GenericLesson
+                title="Repositories" subject="GitHub" path="/github/repos" nextPath="/github/collab"
+                content="Master local and remote repositories. Sync your code with the cloud."
+                quizQuestion="How do you link a local repository to a remote one?"
+                quizOptions={["git link remote", "git remote add origin", "git sync", "git connect"]}
+                quizCorrectAnswer={1}
+            />} />
+            <Route path="/github/collab" element={<GenericLesson
+                title="Collaboration" subject="GitHub" path="/github/collab"
+                content="Learn pull requests, code reviews, and working in teams."
+                quizQuestion="What do you create to propose changes to a repository?"
+                quizOptions={["Push Request", "Commit Suggestion", "Pull Request", "Merge Proposal"]}
+                quizCorrectAnswer={2}
+            />} />
+
             {/* React Course */}
             <Route path="/number" element={<NumberState />} />
             <Route path="/input" element={<InputState />} />
@@ -278,7 +302,74 @@ function HomeRoutes() {
             <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/router-guide" element={<ReactRouterGuide />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
+    );
+}
+
+/**
+ * NotFound - Page for non-existent routes
+ */
+function NotFound() {
+    return (
+        <div className="container" style={{ textAlign: 'center', padding: '100px 20px' }}>
+            <h1 style={{ fontSize: '4rem', marginBottom: '20px' }}>404</h1>
+            <h2 style={{ fontSize: '2rem', marginBottom: '40px' }}>Page Not Found</h2>
+            <p className="description" style={{ marginBottom: '40px' }}>
+                The page you are looking for doesn't exist or has been moved.
+            </p>
+            <Link to="/" className="button buttonPrimary" style={{ display: 'inline-block', textDecoration: 'none' }}>
+                Return Home
+            </Link>
+        </div>
+    );
+}
+
+/**
+ * Footer - Global footer with contact info
+ */
+function Footer() {
+    return (
+        <footer className="footer">
+            <div className="footerContent">
+                <div className="footerSection">
+                    <h3 style={{ fontSize: '1.5rem', marginBottom: '16px' }}>Aloah Milton Academy</h3>
+                    <p className="footerText">
+                        A modern learning platform for developers who want to master the craft of software engineering.
+                    </p>
+                </div>
+                <div className="footerSection">
+                    <h3>Contact Us</h3>
+                    <div className="contactInfo">
+                        <div className="contactItem">
+                            <Mail size={18} />
+                            <a href={`mailto:${CONTACT_INFO.email}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                                {CONTACT_INFO.email}
+                            </a>
+                        </div>
+                        <div className="contactItem">
+                            <Settings size={18} />
+                            <span>WhatsApp: {CONTACT_INFO.whatsapp}</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="footerSection">
+                    <h3>Platform</h3>
+                    <ul className="footerLinks">
+                        <li><Link to="/">Courses</Link></li>
+                        <li><Link to="/services">Services</Link></li>
+                        <li><Link to="/contact">Support</Link></li>
+                    </ul>
+                </div>
+            </div>
+            <div className="footerBottom">
+                <p>&copy; {new Date().getFullYear()} Aloah Milton. All rights reserved.</p>
+                <div style={{ display: 'flex', gap: '20px' }}>
+                    <a href="#" className="footerLink">Privacy Policy</a>
+                    <a href="#" className="footerLink">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
     );
 }
 
@@ -308,6 +399,7 @@ function HomeApp() {
                 <main className="pageContent">
                     <HomeRoutes />
                 </main>
+                <Footer />
             </div>
         </Router>
     );
