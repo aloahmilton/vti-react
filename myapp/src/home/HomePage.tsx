@@ -40,6 +40,11 @@ function HomePage() {
                 <p style={styles.subtitle}>
                     Learn React useState hook through interactive examples
                 </p>
+                <p style={styles.subtitle}>
+                    Github Repo: <a href="https://github.com/aloahmilton/vti-react.git" target="_blank" rel="noopener noreferrer" style={{ color: 'black', textDecoration: 'underline' }}>
+                        View Source Code
+                    </a>
+                </p>
             </header>
 
             {/* Introduction Section */}
