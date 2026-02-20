@@ -46,25 +46,25 @@ function HomePage() {
             {/* Hero Section */}
             <header className="header" style={{
                 textAlign: 'left',
-                padding: '100px 0',
+                padding: 'clamp(40px, 10vw, 100px) 0',
                 background: 'transparent',
                 color: 'var(--text-main)',
                 borderBottom: '1px solid var(--border)',
-                marginBottom: '80px',
+                marginBottom: 'clamp(40px, 6vw, 80px)',
                 borderRadius: 0,
                 display: 'block'
             }}>
                 <div style={{ maxWidth: '900px' }}>
-                    <h1 className="title" style={{ fontSize: '4.5rem', fontWeight: '900', letterSpacing: '-0.05em' }}>
+                    <h1 className="title" style={{ fontSize: 'clamp(2rem, 6vw, 4.5rem)', fontWeight: '900', letterSpacing: '-0.05em' }}>
                         Aloah Milton Academy
                     </h1>
-                    <p className="subtitle" style={{ fontSize: '1.75rem', fontWeight: '500', lineHeight: '1.4', marginTop: '24px' }}>
+                    <p className="subtitle" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.75rem)', fontWeight: '500', lineHeight: '1.4', marginTop: '24px' }}>
                         High-performance engineering education. Master the tools that power the modern web.
                     </p>
-                    <div style={{ marginTop: '48px', display: 'flex', gap: '20px' }}>
+                    <div style={{ marginTop: '48px', display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
                         <Link to="/github/basics" className="button buttonPrimary" style={{
-                            padding: '18px 36px',
-                            fontSize: '1.25rem',
+                            padding: 'clamp(12px, 3vw, 18px) clamp(20px, 4vw, 36px)',
+                            fontSize: 'clamp(0.9rem, 2vw, 1.25rem)',
                             fontWeight: '700',
                             backgroundColor: '#000',
                             color: '#fff',
@@ -74,8 +74,8 @@ function HomePage() {
                             Start GitHub Mastery
                         </Link>
                         <a href="https://github.com/aloahmilton" target="_blank" rel="noopener noreferrer" className="button" style={{
-                            padding: '18px 36px',
-                            fontSize: '1.25rem',
+                            padding: 'clamp(12px, 3vw, 18px) clamp(20px, 4vw, 36px)',
+                            fontSize: 'clamp(0.9rem, 2vw, 1.25rem)',
                             fontWeight: '700',
                             border: '1px solid #000',
                             color: '#000',
@@ -105,27 +105,27 @@ function HomePage() {
                     </div>
                 </div>
 
-                <div className="cardsContainer" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '32px' }}>
+                <div className="cardsContainer" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
                     {sortedCourses.map((course) => {
                         const progress = getProgressPercentage(course.pages.length);
                         return (
                             <div key={course.id} className="card" style={{
-                                padding: '40px',
+                                padding: '12px',
                                 border: '1px solid var(--border)',
-                                borderRadius: '24px',
+                                borderRadius: '12px',
                                 transition: 'var(--transition)',
                                 background: '#fff',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                gap: '24px',
+                                gap: '12px',
                                 boxShadow: 'var(--shadow-sm)'
                             }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                                     <div style={{
-                                        width: '64px',
-                                        height: '64px',
+                                        width: '48px',
+                                        height: '48px',
                                         backgroundColor: '#000',
-                                        borderRadius: '16px',
+                                        borderRadius: '12px',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center'
@@ -133,8 +133,8 @@ function HomePage() {
                                         {renderCourseIcon(course.icon, 'white')}
                                     </div>
                                     <div style={{ flex: 1 }}>
-                                        <h3 style={{ fontSize: '1.75rem', fontWeight: '800', margin: 0 }}>{course.name}</h3>
-                                        <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: '600' }}>{course.pages.length} LESSONS</span>
+                                        <h3 style={{ fontSize: '1.1rem', fontWeight: '800', margin: 0 }}>{course.name}</h3>
+                                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: '600' }}>{course.pages.length} LESSONS</span>
                                     </div>
                                 </div>
 
@@ -161,7 +161,7 @@ function HomePage() {
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     gap: '12px',
-                                    padding: '16px',
+                                    padding: 'clamp(10px, 2.5vw, 16px)',
                                     borderRadius: '12px',
                                     backgroundColor: progress > 0 ? '#f1f5f9' : '#000',
                                     color: progress > 0 ? '#000' : '#fff',

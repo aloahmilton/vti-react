@@ -1,11 +1,12 @@
+ 
 /**
  * Home Components Index
  * 
  * This file exports all home page components and provides routing.
  */
 
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import {
     Home,
     Hash,
@@ -47,6 +48,15 @@ import { courses, CONTACT_INFO } from './constants';
 import { useProgress } from './useProgress';
 import './style.css';
 
+// Helper: close sidebar on route change for small screens
+function RouteListener({ onRouteChange }: { onRouteChange: () => void }) {
+    const location = useLocation();
+    useEffect(() => {
+        if (window.innerWidth < 1024) onRouteChange();
+    }, [location.pathname, onRouteChange]);
+    return null;
+}
+
 // Map icon names to components
 const iconMap: Record<string, LucideIcon> = {
     Home, Hash, Type, ToggleLeft, ClipboardList, Settings, Mail, Code, Compass,
@@ -85,6 +95,7 @@ function Navigation({
     setSubject: (id: string) => void
 }) {
     const location = useLocation();
+    const navigate = useNavigate();
     const { isCompleted, getProgressPercentage } = useProgress();
     const [isSelectorOpen, setIsSelectorOpen] = useState(false);
 
@@ -119,8 +130,13 @@ function Navigation({
                                     key={course.id}
                                     className={`dropdownItem ${currentSubject === course.id ? 'active' : ''}`}
                                     onClick={() => {
+                                        // debug: log selection, set subject and navigate to that course overview
+                                        console.log('select course', course.id);
                                         setSubject(course.id);
                                         setIsSelectorOpen(false);
+                                        // navigate to first page of selected course for immediate feedback
+                                        const target = course.pages && course.pages.length ? course.pages[0].path : '/';
+                                        navigate(target);
                                     }}
                                 >
                                     {renderIcon(course.icon, 16)}
@@ -130,6 +146,18 @@ function Navigation({
                         </div>
                     )}
                 </div>
+                <button
+                    className="sidebarCollapse"
+                    onClick={toggleSidebar}
+                    aria-label="Toggle sidebar"
+                    style={{
+                        border: 'none',
+                        background: 'transparent',
+                        cursor: 'pointer'
+                    }}
+                >
+                    {isOpen ? <X size={18} /> : <Menu size={18} />}
+                </button>
             </div>
 
             <div className="progressContainer">
@@ -385,6 +413,7 @@ function HomeApp() {
     return (
         <Router>
             <div className="homeApp">
+                <RouteListener onRouteChange={() => setIsSidebarOpen(false)} />
                 <Navigation
                     isOpen={isSidebarOpen}
                     toggleSidebar={toggleSidebar}
@@ -398,8 +427,8 @@ function HomeApp() {
 
                 <main className="pageContent">
                     <HomeRoutes />
+                    <Footer />
                 </main>
-                <Footer />
             </div>
         </Router>
     );
