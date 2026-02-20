@@ -408,7 +408,10 @@ function HomeApp() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [currentSubject, setCurrentSubject] = useState('react');
 
-    const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+    const toggleSidebar = () => setIsSidebarOpen(prev => {
+        console.log('toggleSidebar ->', !prev);
+        return !prev;
+    });
 
     return (
         <Router>
@@ -421,7 +424,7 @@ function HomeApp() {
                     setSubject={setCurrentSubject}
                 />
 
-                <button className="mobileToggle" onClick={toggleSidebar}>
+                <button type="button" className="mobileToggle" onClick={toggleSidebar} aria-label="Toggle sidebar">
                     {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
 
