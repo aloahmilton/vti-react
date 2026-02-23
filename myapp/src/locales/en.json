@@ -1,0 +1,37 @@
+{
+    "common": {
+        "back": "Back",
+        "next": "Next",
+        "start": "Start",
+        "continue": "Continue",
+        "dashboard": "Dashboard",
+        "overview": "Overview",
+        "completed": "Completed",
+        "mark_completed": "Mark as Completed"
+    },
+    "landing": {
+        "title": "Aloah Milton",
+        "subtitle": "High-performance engineering education. Master the tools that power the modern web.",
+        "start_cta": "Start GitHub Mastery",
+        "repository": "Repository"
+    },
+    "dashboard": {
+        "title": "My Learning Dashboard",
+        "welcome": "Welcome back! Continue where you left off.",
+        "announcements": "Announcements",
+        "my_courses": "My Courses",
+        "courses_subtitle": "Professional-grade modules to master your craft.",
+        "lessons_count": "{{count}} LESSONS",
+        "progress": "PROGRESS"
+    },
+    "voice": {
+        "title": "Voice Assistant",
+        "nigeria": "Nigerian Accent",
+        "cameroon": "Cameroon Accent",
+        "english": "English",
+        "french": "French",
+        "select_voice": "Choose your voice accent",
+        "speak": "Speak Lesson",
+        "stop": "Stop"
+    }
+}

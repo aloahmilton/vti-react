@@ -1,0 +1,133 @@
+/* ===========================================
+   Lesson.css — Shared styles for all lesson pages
+   Includes: header, voice controls, nav buttons
+   =========================================== */
+
+/* ---- Lesson Header ---- */
+.lesson-header {
+    padding: 0 0 40px 0;
+    border-bottom: 1px solid var(--border);
+    background: transparent;
+    margin-bottom: 48px;
+}
+
+.lesson-header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.lesson-header-title h1 {
+    font-size: 3rem;
+    color: var(--text-main);
+    margin: 0;
+    line-height: 1;
+}
+
+.lesson-header-title p {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    margin: 8px 0 0;
+}
+
+/* ---- Voice Controls ---- */
+.lesson-voice-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.lesson-voice-select-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    display: block;
+}
+
+.lesson-voice-select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 0.9rem;
+    background-color: var(--surface);
+    color: var(--text-main);
+    max-width: 220px;
+    width: 100%;
+}
+
+.lesson-voice-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.lesson-voice-btn:hover {
+    transform: translateY(-1px);
+}
+
+.lesson-voice-btn.speaking {
+    background-color: #ef4444;
+    color: white;
+}
+
+.lesson-voice-btn.idle {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* ---- Navigation ---- */
+.lesson-nav {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+}
+
+.lesson-nav-btn {
+    padding: 14px 28px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lesson-nav-btn.prev {
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+}
+
+.lesson-nav-btn.prev:hover {
+    color: var(--text-main);
+    border-color: var(--text-muted);
+}
+
+.lesson-nav-btn.next {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: var(--shadow-sm);
+}
+
+.lesson-nav-btn.next:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}

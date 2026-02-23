@@ -1,0 +1,135 @@
+/* =========================================
+   CodeEditor Component Styles
+   Scoped under .ce-* to avoid collisions
+   ========================================= */
+
+.ce-wrapper {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    background: #1e1e2e;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    margin: 32px 0;
+}
+
+/* ---- Header ---- */
+.ce-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: #181825;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ce-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ce-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.ce-dot.red {
+    background: #ff5f57;
+}
+
+.ce-dot.yellow {
+    background: #febc2e;
+}
+
+.ce-dot.green {
+    background: #28c840;
+}
+
+.ce-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.55);
+    margin-left: 4px;
+    letter-spacing: 0.05em;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.ce-header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.ce-lang-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(99, 102, 241, 0.2);
+    color: #a5b4fc;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.ce-btn {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ce-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+}
+
+.ce-btn-run {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: rgba(34, 197, 94, 0.3);
+    color: #86efac;
+}
+
+.ce-btn-run:hover {
+    background: rgba(34, 197, 94, 0.25);
+    color: #bbf7d0;
+}
+
+/* ---- Editor pane ---- */
+.ce-editor-pane {
+    background: #1e1e2e;
+}
+
+/* ---- Output pane ---- */
+.ce-output-pane {
+    background: #11111b;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 16px 20px;
+}
+
+.ce-output-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+}
+
+.ce-output-text {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.88rem;
+    color: #a6e3a1;
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.6;
+}

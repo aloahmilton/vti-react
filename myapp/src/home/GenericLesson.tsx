@@ -1,19 +1,44 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, ChevronRight, Volume2, VolumeX } from 'lucide-react';
-import Quiz from './Quiz';
-import { useProgress } from './useProgress';
+import Quiz from '../components/Quiz';
+import { useProgress } from '../components/useProgress';
+import { useTranslation } from 'react-i18next';
+import { useSettings } from '../contexts/SettingsContext';
+import CodeEditor from '../components/CodeEditor/CodeEditor';
 import './style.css';
+import './Lesson.css';
+
+interface CodeExample {
+    label: string;
+    code: string;
+    language?: string;
+}
+
+interface ConceptCard {
+    icon: string;
+    title: string;
+    desc: string;
+}
 
 interface GenericLessonProps {
     title: string;
     subject: string;
     content: string;
     path: string;
+    prevPath?: string;
     nextPath?: string;
+    nextLabel?: string;
+    prevLabel?: string;
     quizQuestion: string;
     quizOptions: string[];
     quizCorrectAnswer: number;
+    /** Code examples shown in the editor — first one is the default */
+    codeExamples?: CodeExample[];
+    /** Concept cards shown below the intro paragraph */
+    conceptCards?: ConceptCard[];
+    /** Language for the editor */
+    editorLanguage?: string;
 }
 
 function GenericLesson({
@@ -21,77 +46,132 @@ function GenericLesson({
     subject,
     content,
     path,
+    prevPath,
     nextPath,
+    nextLabel = 'Next',
+    prevLabel = 'Previous',
     quizQuestion,
     quizOptions,
-    quizCorrectAnswer
+    quizCorrectAnswer,
+    codeExamples,
+    conceptCards,
+    editorLanguage = 'bash',
 }: GenericLessonProps) {
     const { markAsCompleted } = useProgress();
+    const { t } = useTranslation();
+    const { voiceAccent, setVoiceAccent, availableVoices } = useSettings();
     const [isSpeaking, setIsSpeaking] = useState(false);
+    const [activeExample, setActiveExample] = useState(0);
 
     const toggleSpeech = () => {
         if (isSpeaking) {
             window.speechSynthesis.cancel();
             setIsSpeaking(false);
         } else {
-            const textToSpeak = `Lesson: ${title}. ${content}. Let's test your knowledge with a quiz. ${quizQuestion}`;
-            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            const utterance = new SpeechSynthesisUtterance(`${title} lesson. ${content}. Quiz: ${quizQuestion}`);
+            if (voiceAccent !== 'default') {
+                const v = availableVoices.find(v => v.voiceURI === voiceAccent);
+                if (v) utterance.voice = v;
+            }
             utterance.onend = () => setIsSpeaking(false);
             window.speechSynthesis.speak(utterance);
             setIsSpeaking(true);
         }
     };
 
-    // Stop speaking when navigating away
-    useEffect(() => {
-        return () => window.speechSynthesis.cancel();
-    }, []);
+    useEffect(() => () => window.speechSynthesis.cancel(), []);
 
     return (
         <div className="container">
-            <header className="header" style={{ padding: '0 0 40px 0', borderBottom: '1px solid var(--border)', background: 'transparent' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div>
-                        <h1 className="title" style={{ fontSize: '3rem', color: 'var(--text-main)' }}>{title}</h1>
-                        <p className="subtitle" style={{ fontSize: '1.25rem', color: 'var(--text-muted)' }}>{subject} Module</p>
+            {/* Breadcrumb */}
+            <nav style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '24px', display: 'flex', gap: '6px', alignItems: 'center', flexWrap: 'wrap' }}>
+                <Link to="/dashboard" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Dashboard</Link>
+                <ChevronRight size={14} />
+                <span style={{ color: 'var(--text-muted)' }}>{subject}</span>
+                <ChevronRight size={14} />
+                <span style={{ color: 'var(--text-main)', fontWeight: 700 }}>{title}</span>
+            </nav>
+
+            {/* Header */}
+            <header className="lesson-header">
+                <div className="lesson-header-inner">
+                    <div className="lesson-header-title">
+                        <h1>{title}</h1>
+                        <p>{subject} Module</p>
                     </div>
-                    <button
-                        className={`voiceButton ${isSpeaking ? 'active' : ''}`}
-                        onClick={toggleSpeech}
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '10px',
-                            padding: '14px 28px',
-                            borderRadius: '14px',
-                            backgroundColor: isSpeaking ? '#ef4444' : 'var(--primary)',
-                            color: 'white',
-                            border: 'none',
-                            fontWeight: '700',
-                            cursor: 'pointer',
-                            fontSize: '1rem',
-                            transition: 'var(--transition)',
-                            boxShadow: 'var(--shadow-sm)'
-                        }}
-                    >
-                        {isSpeaking ? <VolumeX size={22} /> : <Volume2 size={22} />}
-                        {isSpeaking ? 'Stop Voice' : 'Voice Mode'}
-                    </button>
+                    <div className="lesson-voice-controls">
+                        <label className="lesson-voice-select-label">{t('voice.select_voice')}</label>
+                        <select className="lesson-voice-select" value={voiceAccent} onChange={(e) => setVoiceAccent(e.target.value)}>
+                            <option value="default">{t('voice.nigeria')}</option>
+                            {availableVoices.map(voice => (
+                                <option key={voice.voiceURI} value={voice.voiceURI}>{voice.name} ({voice.lang})</option>
+                            ))}
+                        </select>
+                        <button className={`lesson-voice-btn ${isSpeaking ? 'speaking' : 'idle'}`} onClick={toggleSpeech}>
+                            {isSpeaking ? <VolumeX size={20} /> : <Volume2 size={20} />}
+                            {isSpeaking ? t('voice.stop') : t('voice.speak')}
+                        </button>
+                    </div>
                 </div>
             </header>
 
-            <section className="intro" style={{ background: 'transparent', padding: '60px 0', borderBottom: '1px solid var(--border)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
-                    <BookOpen color="var(--primary)" size={32} />
-                    <h2 className="sectionTitle" style={{ margin: 0, fontSize: '2rem', fontWeight: '800' }}>Introduction</h2>
+            {/* Introduction */}
+            <section className="intro">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
+                    <BookOpen color="var(--primary)" size={28} />
+                    <h2 className="sectionTitle" style={{ margin: 0 }}>Introduction</h2>
                 </div>
-                <p className="description" style={{ fontSize: '1.5rem', lineHeight: '1.8', color: 'var(--text-main)', maxWidth: '900px' }}>{content}</p>
-                <div className="codeBlock" style={{ marginTop: '48px', backgroundColor: '#000', borderRadius: '16px' }}>
-                    <code className="code" style={{ fontSize: '1.2rem', color: '#10b981' }}>
-                        {`// Documentation for ${title} is being prepared.`}
-                    </code>
-                </div>
+                <p className="description">{content}</p>
+
+                {/* Concept cards */}
+                {conceptCards && conceptCards.length > 0 && (
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, marginTop: 32 }}>
+                        {conceptCards.map(c => (
+                            <div key={c.title} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 12, padding: '20px 16px' }}>
+                                <div style={{ fontSize: '1.8rem', marginBottom: 8 }}>{c.icon}</div>
+                                <strong style={{ display: 'block', marginBottom: 6, color: 'var(--text-main)' }}>{c.title}</strong>
+                                <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>{c.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </section>
+
+            {/* Code Examples */}
+            {codeExamples && codeExamples.length > 0 && (
+                <section className="demo">
+                    <h2 className="sectionTitle">Code Examples</h2>
+
+                    {/* Tab bar */}
+                    {codeExamples.length > 1 && (
+                        <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
+                            {codeExamples.map((ex, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => setActiveExample(i)}
+                                    style={{
+                                        padding: '6px 16px', borderRadius: 8, border: '1px solid var(--border)',
+                                        background: activeExample === i ? '#000' : 'transparent',
+                                        color: activeExample === i ? '#fff' : 'var(--text-muted)',
+                                        fontWeight: 700, fontSize: '0.82rem', cursor: 'pointer'
+                                    }}
+                                >
+                                    {ex.label}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
+                    <CodeEditor
+                        title={codeExamples[activeExample].label}
+                        language={codeExamples[activeExample].language ?? editorLanguage}
+                        height="260px"
+                        showPreview={editorLanguage === 'javascript'}
+                        defaultCode={codeExamples[activeExample].code}
+                        key={activeExample} // remount on tab change
+                    />
+                </section>
+            )}
 
             <Quiz
                 question={quizQuestion}
@@ -100,33 +180,13 @@ function GenericLesson({
                 onComplete={() => markAsCompleted(path)}
             />
 
-            <div style={{ marginTop: '80px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Link to="/" className="button" style={{
-                    padding: '14px 28px',
-                    borderRadius: '12px',
-                    textDecoration: 'none',
-                    color: 'var(--text-muted)',
-                    fontWeight: '700',
-                    fontSize: '1.1rem'
-                }}>← Back to Overview</Link>
-                {nextPath && (
-                    <Link to={nextPath} className="button buttonPrimary" style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        padding: '18px 40px',
-                        borderRadius: '16px',
-                        backgroundColor: 'var(--primary)',
-                        color: 'white',
-                        textDecoration: 'none',
-                        fontWeight: '800',
-                        fontSize: '1.2rem',
-                        boxShadow: 'var(--shadow-md)'
-                    }}>
-                        Next Lesson <ChevronRight size={24} />
-                    </Link>
-                )}
-            </div>
+            <nav className="lesson-nav">
+                {prevPath
+                    ? <Link to={prevPath} className="lesson-nav-btn prev">← {prevLabel}</Link>
+                    : <Link to="/dashboard" className="lesson-nav-btn prev">← Dashboard</Link>
+                }
+                {nextPath && <Link to={nextPath} className="lesson-nav-btn next">{nextLabel} →</Link>}
+            </nav>
         </div>
     );
 }

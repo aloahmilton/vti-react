@@ -1,0 +1,37 @@
+{
+    "common": {
+        "back": "Retour",
+        "next": "Suivant",
+        "start": "Commencer",
+        "continue": "Continuer",
+        "dashboard": "Tableau de bord",
+        "overview": "Aperçu",
+        "completed": "Terminé",
+        "mark_completed": "Marquer comme terminé"
+    },
+    "landing": {
+        "title": "Aloah Milton",
+        "subtitle": "Formation en ingénierie haute performance. Maîtrisez les outils qui propulsent le web moderne.",
+        "start_cta": "Commencer la maîtrise de GitHub",
+        "repository": "Dépôt"
+    },
+    "dashboard": {
+        "title": "Mon tableau de bord",
+        "welcome": "Bon retour ! Continuez là où vous vous êtes arrêté.",
+        "announcements": "Annonces",
+        "my_courses": "Mes cours",
+        "courses_subtitle": "Des modules de niveau professionnel pour maîtriser votre métier.",
+        "lessons_count": "{{count}} LEÇONS",
+        "progress": "PROGRESSION"
+    },
+    "voice": {
+        "title": "Assistant Vocal",
+        "nigeria": "Accent Nigérian",
+        "cameroon": "Accent Camerounais",
+        "english": "Anglais",
+        "french": "Français",
+        "select_voice": "Choisissez votre accent vocal",
+        "speak": "Lire la leçon",
+        "stop": "Arrêter"
+    }
+}

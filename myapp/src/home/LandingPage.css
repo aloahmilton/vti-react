@@ -1,0 +1,120 @@
+/* ===========================================
+   LandingPage.css — Styles for landing page
+   =========================================== */
+
+.landing-page {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Hero */
+.landing-hero {
+    text-align: center;
+    padding: clamp(60px, 15vw, 120px) 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.landing-hero-inner {
+    max-width: 800px;
+}
+
+.landing-title {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    margin-bottom: 24px;
+    color: var(--text-main);
+    line-height: 1.05;
+}
+
+.landing-subtitle {
+    font-size: clamp(1.1rem, 3vw, 1.75rem);
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text-muted);
+    margin: 0 auto 48px;
+}
+
+.landing-cta-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.landing-cta-primary {
+    padding: 16px 40px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    background-color: #000;
+    color: #fff;
+    border-radius: 12px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.landing-cta-primary:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+}
+
+.landing-cta-secondary {
+    padding: 16px 40px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border: 2px solid #000;
+    color: #000;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.landing-cta-secondary:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Features section */
+.landing-features {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.landing-features-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: var(--text-main);
+}
+
+.landing-features-text {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    margin: 0 auto 48px;
+    max-width: 600px;
+}
+
+.landing-coaching-cta {
+    padding: 20px 48px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background-color: #000;
+    color: #fff;
+    border-radius: 16px;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.landing-coaching-cta:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+}

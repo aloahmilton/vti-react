@@ -36,12 +36,13 @@ export const courses: Course[] = [
         name: 'React',
         icon: 'Code',
         pages: [
-            { name: 'Number State', path: '/number', icon: 'Hash' },
-            { name: 'Input State', path: '/input', icon: 'Type' },
-            { name: 'Toggle State', path: '/toggle', icon: 'ToggleLeft' },
-            { name: 'Form State', path: '/form', icon: 'ClipboardList' },
-            { name: 'React Guide', path: '/react-guide', icon: 'BookOpen' },
-            { name: 'Router Guide', path: '/router-guide', icon: 'Compass' }
+            { name: 'Number State', path: '/react/number', icon: 'Hash' },
+            { name: 'Input State', path: '/react/input', icon: 'Type' },
+            { name: 'Toggle State', path: '/react/toggle', icon: 'ToggleLeft' },
+            { name: 'Form State', path: '/react/form', icon: 'ClipboardList' },
+            { name: 'Navbar & Menu Links', path: '/react/navbar', icon: 'Menu' },
+            { name: 'React Guide', path: '/react/guide', icon: 'BookOpen' },
+            { name: 'Router Guide', path: '/react/router', icon: 'Compass' }
         ]
     },
     {

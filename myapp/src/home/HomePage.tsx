@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import {
     Github,
     Target,
-    Zap,
     Brain,
     Code,
     FileCode,
@@ -12,235 +11,145 @@ import {
     Box,
     type LucideIcon
 } from 'lucide-react';
-import { useProgress } from './useProgress';
+import { useProgress } from '../components/useProgress';
 import { courses } from './constants';
-import { Carousel } from './Carousel';
-import './style.css';
+import { Carousel } from '../components/Carousel';
+import { useTranslation } from 'react-i18next';
+import { useSettings } from '../contexts/SettingsContext';
+import './Dashboard.css';
 
 const courseIconMap: Record<string, LucideIcon> = {
-    Github,
-    Code,
-    FileCode,
-    Palette,
-    SquarePlay,
-    Target,
-    Box
+    Github, Code, FileCode, Palette, SquarePlay, Target, Box
+};
+
+const courseDescriptions: Record<string, { en: string; fr: string }> = {
+    github: {
+        en: 'Master version control, branches, and collaboration on GitHub.',
+        fr: 'Maîtrisez le contrôle de version, les branches et la collaboration sur GitHub.',
+    },
+    react: {
+        en: 'Build dynamic user interfaces with state, hooks, and components.',
+        fr: 'Créez des interfaces utilisateur dynamiques avec state, hooks et composants.',
+    },
+    html: {
+        en: 'Complete guide to semantic HTML5 and modern web structure.',
+        fr: 'Guide complet du HTML5 sémantique et de la structure web moderne.',
+    },
+    css: {
+        en: 'Advanced layouts with Flexbox, Grid, and performance-tuned CSS.',
+        fr: 'Mises en page avancées avec Flexbox, Grid et CSS optimisé.',
+    },
+    js: {
+        en: 'Core JS concepts, DOM manipulation, and functional patterns.',
+        fr: 'Concepts JS fondamentaux, manipulation du DOM et patterns fonctionnels.',
+    },
 };
 
 /**
- * HomePage - Redesigned as a Premium Global Learning Dashboard
+ * HomePage — Post-Login Dashboard.
+ * All layout styles live in Dashboard.css.
  */
 function HomePage() {
     const { getProgressPercentage } = useProgress();
+    const { t } = useTranslation();
+    const { language } = useSettings();
 
-    const renderCourseIcon = (iconName: string, color: string) => {
-        const IconComponent = courseIconMap[iconName] || Brain;
-        return <IconComponent style={{ color }} size={32} />;
-    };
+    const lang = (language as 'en' | 'fr') || 'en';
 
-    // Prioritize GitHub as requested
     const sortedCourses = [...courses].sort((a) => (a.id === 'github' ? -1 : 1));
 
     return (
-        <div className="container" style={{ maxWidth: '1200px' }}>
-            {/* Hero Section */}
-            <header className="header" style={{
-                textAlign: 'left',
-                padding: 'clamp(40px, 10vw, 100px) 0',
-                background: 'transparent',
-                color: 'var(--text-main)',
-                borderBottom: '1px solid var(--border)',
-                marginBottom: 'clamp(40px, 6vw, 80px)',
-                borderRadius: 0,
-                display: 'block'
-            }}>
-                <div style={{ maxWidth: '900px' }}>
-                    <h1 className="title" style={{ fontSize: 'clamp(2rem, 6vw, 4.5rem)', fontWeight: '900', letterSpacing: '-0.05em' }}>
-                        Aloah Milton 
-                    </h1>
-                    <p className="subtitle" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.75rem)', fontWeight: '500', lineHeight: '1.4', marginTop: '24px' }}>
-                        High-performance engineering education. Master the tools that power the modern web.
-                    </p>
-                    <div style={{ marginTop: '48px', display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-                        <Link to="/github/basics" className="button buttonPrimary" style={{
-                            padding: 'clamp(12px, 3vw, 18px) clamp(20px, 4vw, 36px)',
-                            fontSize: 'clamp(0.9rem, 2vw, 1.25rem)',
-                            fontWeight: '700',
-                            backgroundColor: '#000',
-                            color: '#fff',
-                            borderRadius: '12px',
-                            textDecoration: 'none'
-                        }}>
-                            Start GitHub Mastery
-                        </Link>
-                        <a href="https://github.com/aloahmilton" target="_blank" rel="noopener noreferrer" className="button" style={{
-                            padding: 'clamp(12px, 3vw, 18px) clamp(20px, 4vw, 36px)',
-                            fontSize: 'clamp(0.9rem, 2vw, 1.25rem)',
-                            fontWeight: '700',
-                            border: '1px solid #000',
-                            color: '#000',
-                            borderRadius: '12px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            textDecoration: 'none'
-                        }}>
-                            <Github size={24} /> Repository
-                        </a>
-                    </div>
-                </div>
+        <div className="dashboard-page">
+            {/* ---- Header ---- */}
+            <header className="dashboard-header">
+                <h1>{t('dashboard.title')}</h1>
+                <p>{t('dashboard.welcome')}</p>
             </header>
 
-            {/* Featured Section (Carousel) */}
-            <section style={{ marginBottom: '100px' }}>
+            {/* ---- Announcements (Carousel) ---- */}
+            <section className="dashboard-announcements">
+                <div className="dashboard-section-header">
+                    <h2>{t('dashboard.announcements')}</h2>
+                </div>
                 <Carousel />
             </section>
 
-            {/* Course Grid */}
-            <section style={{ marginBottom: '100px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px' }}>
+            {/* ---- Course Grid ---- */}
+            <section className="dashboard-courses">
+                <div className="dashboard-courses-meta">
                     <div>
-                        <h2 className="sectionTitle" style={{ fontSize: '2.5rem', fontWeight: '800', margin: 0 }}>Courses</h2>
-                        <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginTop: '8px' }}>Explore our curriculum of professional-grade modules.</p>
+                        <h2>{t('dashboard.my_courses')}</h2>
+                        <p>{t('dashboard.courses_subtitle')}</p>
                     </div>
                 </div>
 
-                <div className="cardsContainer" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+                <div className="dashboard-grid">
                     {sortedCourses.map((course) => {
                         const progress = getProgressPercentage(course.pages.length);
+                        const IconCmp = courseIconMap[course.icon] || Brain;
+                        const desc = courseDescriptions[course.id]?.[lang] ?? '';
+
                         return (
-                            <div key={course.id} className="card" style={{
-                                padding: '12px',
-                                border: '1px solid var(--border)',
-                                borderRadius: '12px',
-                                transition: 'var(--transition)',
-                                background: '#fff',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '12px',
-                                boxShadow: 'var(--shadow-sm)'
-                            }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                            <div key={course.id} className="course-card">
+                                {/* Icon + Name */}
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                     <div style={{
-                                        width: '48px',
-                                        height: '48px',
-                                        backgroundColor: '#000',
-                                        borderRadius: '12px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center'
+                                        width: 40, height: 40,
+                                        background: '#000',
+                                        borderRadius: 8,
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        flexShrink: 0,
                                     }}>
-                                        {renderCourseIcon(course.icon, 'white')}
+                                        <IconCmp size={20} color="white" />
                                     </div>
-                                    <div style={{ flex: 1 }}>
-                                        <h3 style={{ fontSize: '1.1rem', fontWeight: '800', margin: 0 }}>{course.name}</h3>
-                                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: '600' }}>{course.pages.length} LESSONS</span>
+                                    <div>
+                                        <p className="course-card-name">{course.name}</p>
+                                        <span className="course-card-lessons">
+                                            {t('dashboard.lessons_count', { count: course.pages.length })}
+                                        </span>
                                     </div>
                                 </div>
 
-                                <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: '1.6', margin: 0 }}>
-                                    {course.id === 'github' && 'Master version control, branches, and collaboration on GitHub.'}
-                                    {course.id === 'react' && 'Build dynamic user interfaces with state, hooks, and components.'}
-                                    {course.id === 'html' && 'Complete guide to semantic HTML5 and modern web structure.'}
-                                    {course.id === 'css' && 'Advanced layouts with Flexbox, Grid, and performance-tuned CSS.'}
-                                    {course.id === 'js' && 'Core JS concepts, DOM manipulation, and functional patterns.'}
-                                </p>
+                                <p className="course-card-desc">{desc}</p>
 
-                                <div style={{ marginTop: 'auto' }}>
-                                    <div className="progressBarLabel" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', fontWeight: '700', marginBottom: '10px' }}>
-                                        <span>PROGRESS</span>
+                                {/* Progress */}
+                                <div className="course-card-progress-wrap">
+                                    <div className="course-card-progress-label">
+                                        <span>{t('dashboard.progress')}</span>
                                         <span>{progress}%</span>
                                     </div>
-                                    <div className="progressBarWrapper" style={{ height: '8px', backgroundColor: '#f1f5f9', borderRadius: '4px' }}>
-                                        <div className="progressBar" style={{ width: `${progress}%`, backgroundColor: '#000', height: '100%', borderRadius: '4px' }}></div>
+                                    <div className="course-card-bar">
+                                        <div className="course-card-bar-fill" style={{ width: `${progress}%` }} />
                                     </div>
                                 </div>
 
-                                <Link to={course.pages[0].path} style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    gap: '12px',
-                                    padding: 'clamp(10px, 2.5vw, 16px)',
-                                    borderRadius: '12px',
-                                    backgroundColor: progress > 0 ? '#f1f5f9' : '#000',
-                                    color: progress > 0 ? '#000' : '#fff',
-                                    textDecoration: 'none',
-                                    fontWeight: '800',
-                                    transition: 'var(--transition)'
-                                }}>
-                                    {progress > 0 ? 'CONTINUE LEARNING' : 'START MODULE'} <ChevronRight size={18} />
+                                {/* Start / Continue */}
+                                <Link
+                                    to={course.pages[0].path}
+                                    className="course-card"
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        gap: 8,
+                                        padding: '10px',
+                                        borderRadius: 8,
+                                        backgroundColor: progress > 0 ? '#f1f5f9' : '#000',
+                                        color: progress > 0 ? '#000' : '#fff',
+                                        textDecoration: 'none',
+                                        fontWeight: 700,
+                                        fontSize: '0.85rem',
+                                        border: 'none',
+                                        marginTop: 'auto',
+                                    }}
+                                >
+                                    {progress > 0 ? t('common.continue').toUpperCase() : t('common.start').toUpperCase()}
+                                    <ChevronRight size={16} />
                                 </Link>
                             </div>
                         );
                     })}
                 </div>
-            </section>
-
-            {/* Voice Learning Feature */}
-            <section style={{
-                padding: '80px',
-                backgroundColor: '#f8fafc',
-                borderRadius: '32px',
-                marginBottom: '100px'
-            }}>
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                    gap: '60px',
-                    alignItems: 'center'
-                }}>
-                    <div>
-                        <h2 style={{ fontSize: '3rem', fontWeight: '900', marginBottom: '24px', letterSpacing: '-0.02em' }}>Voice-Powered Learning</h2>
-                        <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '40px' }}>
-                            Education adjusted for your lifestyle. High-fidelity AI explanations for every lesson. Learn while you commute, exercise, or rest.
-                        </p>
-                        <div style={{ display: 'flex', gap: '24px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                <div style={{ width: '48px', height: '48px', backgroundColor: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'var(--shadow-sm)' }}>
-                                    <Zap size={24} color="#000" />
-                                </div>
-                                <span style={{ fontWeight: '700' }}>Fast Learning</span>
-                            </div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                <div style={{ width: '48px', height: '48px', backgroundColor: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'var(--shadow-sm)' }}>
-                                    <Brain size={24} color="#000" />
-                                </div>
-                                <span style={{ fontWeight: '700' }}>AI Instructor</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div style={{
-                        aspectRatio: '1',
-                        backgroundColor: '#000',
-                        borderRadius: '24px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '8rem'
-                    }}>
-                        🎙️
-                    </div>
-                </div>
-            </section>
-
-            {/* Support Section */}
-            <section style={{ textAlign: 'center', paddingBottom: '100px' }}>
-                <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '24px' }}>Ready to Scale Your Skills?</h2>
-                <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '48px', maxWidth: '600px', margin: '0 auto 48px' }}>
-                    Join hundreds of developers mastering the craft with Aloah Milton. Professional support available 24/7.
-                </p>
-                <Link to="/contact" className="button buttonPrimary" style={{
-                    padding: '20px 48px',
-                    fontSize: '1.5rem',
-                    fontWeight: '800',
-                    backgroundColor: '#000',
-                    color: '#fff',
-                    borderRadius: '16px',
-                    textDecoration: 'none'
-                }}>
-                    Get Personal Coaching
-                </Link>
             </section>
         </div>
     );
