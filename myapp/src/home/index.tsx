@@ -335,6 +335,64 @@ function HomeRoutes() {
             <Route path="/react/toggle" element={<ToggleState />} />
             <Route path="/react/form" element={<FormState />} />
             <Route path="/react/navbar" element={<NavbarLesson />} />
+            <Route path="/react/props" element={<GenericLesson
+                title="🎁 Props" subject="React" path="/react/props"
+                prevPath="/react/navbar" prevLabel="Navbar & Menu Links"
+                nextPath="/react/useeffect" nextLabel="useEffect"
+                content="Props (properties) pass data from parent to child components. They are read-only — children never modify them. Think of props as function arguments: the parent calls the child with data, and the child renders based on that data."
+                editorLanguage="javascript"
+                conceptCards={[
+                    { icon: '📦', title: 'Props', desc: 'Data passed downward from parent to child.' },
+                    { icon: '🔒', title: 'Read-Only', desc: 'Never mutate props — use state for mutable values.' },
+                    { icon: '👶', title: 'children prop', desc: 'Content between JSX tags becomes the children prop.' },
+                ]}
+                codeExamples={[
+                    { label: 'Basic Props', language: 'javascript', code: '// Parent passes data\nfunction App() {\n  return <UserCard name="Aloah" role="Instructor" />;\n}\n\n// Child reads props\nfunction UserCard({ name, role }) {\n  return (\n    <div>\n      <h3>{name}</h3>\n      <p>{role}</p>\n    </div>\n  );\n}' },
+                    { label: 'children prop', language: 'javascript', code: 'function Card({ title, children }) {\n  return (\n    <div style={{ border: "1px solid #ccc", borderRadius: 12, padding: 20 }}>\n      <h2>{title}</h2>\n      {children}\n    </div>\n  );\n}\n\nfunction App() {\n  return (\n    <Card title="My Card">\n      <p>This paragraph is the children prop!</p>\n    </Card>\n  );\n}' },
+                ]}
+                quizQuestion="What are props in React?"
+                quizOptions={["Mutable component state", "Data passed from parent to child", "CSS styles", "Event handlers"]}
+                quizCorrectAnswer={1}
+            />} />
+            <Route path="/react/useeffect" element={<GenericLesson
+                title="⚡ useEffect" subject="React" path="/react/useeffect"
+                prevPath="/react/props" prevLabel="Props"
+                nextPath="/react/usestate" nextLabel="useState Deep Dive"
+                content="useEffect runs side effects after a component renders — like fetching data, timers, or DOM updates. The dependency array controls when it re-runs: [] means once on mount, [val] means when val changes, omitted means every render."
+                editorLanguage="javascript"
+                conceptCards={[
+                    { icon: '🔄', title: 'Runs after render', desc: 'useEffect fires after React paints the screen.' },
+                    { icon: '📋', title: 'Dependency array', desc: '[] = once. [val] = on change. Nothing = every render.' },
+                    { icon: '🧹', title: 'Cleanup', desc: 'Return a function to clear timers and subscriptions.' },
+                ]}
+                codeExamples={[
+                    { label: 'Fetch on Mount', language: 'javascript', code: 'import { useState, useEffect } from "react";\n\nfunction UserList() {\n  const [users, setUsers] = useState([]);\n  const [loading, setLoading] = useState(true);\n\n  useEffect(() => {\n    fetch("https://jsonplaceholder.typicode.com/users")\n      .then(res => res.json())\n      .then(data => { setUsers(data); setLoading(false); });\n  }, []);  // Empty array = run once on mount\n\n  if (loading) return <p>Loading...</p>;\n  return <ul>{users.map(u => <li key={u.id}>{u.name}</li>)}</ul>;\n}' },
+                    { label: 'Watch a Value', language: 'javascript', code: 'import { useState, useEffect } from "react";\n\nfunction SearchBox({ query }) {\n  const [results, setResults] = useState([]);\n\n  useEffect(() => {\n    if (!query) return;\n    const timer = setTimeout(() => {\n      // Re-runs every time query changes\n      fetch(`/api/search?q=${query}`)\n        .then(r => r.json()).then(setResults);\n    }, 300);\n    // Cleanup: clear timer if query changes\n    return () => clearTimeout(timer);\n  }, [query]);\n\n  return <ul>{results.map(r => <li key={r.id}>{r.name}</li>)}</ul>;\n}' },
+                    { label: 'Cleanup Timer', language: 'javascript', code: 'import { useState, useEffect } from "react";\n\nfunction Clock() {\n  const [time, setTime] = useState(new Date());\n\n  useEffect(() => {\n    const interval = setInterval(() => setTime(new Date()), 1000);\n    // Cleanup: stop interval when component unmounts\n    return () => clearInterval(interval);\n  }, []);\n\n  return <p>Time: {time.toLocaleTimeString()}</p>;\n}' },
+                ]}
+                quizQuestion="What does an empty dependency array [] in useEffect mean?"
+                quizOptions={["Run on every render", "Never run", "Run once after mount", "Run before render"]}
+                quizCorrectAnswer={2}
+            />} />
+            <Route path="/react/usestate" element={<GenericLesson
+                title="🧠 useState Deep Dive" subject="React" path="/react/usestate"
+                prevPath="/react/useeffect" prevLabel="useEffect"
+                nextPath="/react/guide" nextLabel="React Guide"
+                content="useState is React's most fundamental hook. It stores values that change over time. Each setState call triggers a re-render. Key concepts: functional updates (use prev => to be safe), object state (always spread!), and state batching."
+                editorLanguage="javascript"
+                conceptCards={[
+                    { icon: '📸', title: 'Snapshot', desc: 'State is frozen per render — reads always return the current value.' },
+                    { icon: '🔁', title: 'Functional update', desc: 'setState(prev => prev + 1) is safe when relying on previous state.' },
+                    { icon: '⚛️', title: 'Object state', desc: 'Spread old state to update objects: {...prev, key: val}.' },
+                ]}
+                codeExamples={[
+                    { label: 'Functional Update', language: 'javascript', code: 'import { useState } from "react";\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  // SAFE: always uses the actual latest value\n  const increment = () => setCount(prev => prev + 1);\n\n  // Triple increment — only works with functional form!\n  const triple = () => {\n    setCount(prev => prev + 1);\n    setCount(prev => prev + 1);\n    setCount(prev => prev + 1);\n  };\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={increment}>+1</button>\n      <button onClick={triple}>+3</button>\n    </div>\n  );\n}' },
+                    { label: 'Object State', language: 'javascript', code: 'import { useState } from "react";\n\nfunction ProfileForm() {\n  const [profile, setProfile] = useState({\n    name: "",\n    email: "",\n    role: "student"\n  });\n\n  const update = (field, value) => {\n    // ALWAYS spread old state when updating objects\n    setProfile(prev => ({ ...prev, [field]: value }));\n  };\n\n  return (\n    <>\n      <input value={profile.name} onChange={e => update("name", e.target.value)} />\n      <input value={profile.email} onChange={e => update("email", e.target.value)} />\n      <pre>{JSON.stringify(profile, null, 2)}</pre>\n    </>\n  );\n}' },
+                ]}
+                quizQuestion="When should you use setState(prev => ...) instead of setState(newValue)?"
+                quizOptions={["Always", "When the new state depends on previous state", "Only with arrays", "Never"]}
+                quizCorrectAnswer={1}
+            />} />
             <Route path="/react/guide" element={<ReactFunctionsGuide />} />
             <Route path="/react/router" element={<ReactRouterGuide />} />
 
@@ -505,8 +563,68 @@ function HomeRoutes() {
             />} />
 
             {/* PHP Course Placeholder */}
+            <Route path="/js/async" element={<GenericLesson
+                title="⏳ Async / Await" subject="JavaScript" path="/js/async"
+                prevPath="/js/dom" prevLabel="DOM Manipulation"
+                nextPath="/js/fetch" nextLabel="Fetch API"
+                content="async/await is the modern way to handle asynchronous operations. It makes Promise-based code readable — like synchronous code. Mark a function async, then await any Promise inside it. Errors are caught with try/catch."
+                editorLanguage="javascript"
+                conceptCards={[
+                    { icon: '🔮', title: 'async', desc: 'Marks a function as asynchronous — it always returns a Promise.' },
+                    { icon: '⏸️', title: 'await', desc: 'Pauses execution until a Promise resolves. Only works inside async.' },
+                    { icon: '🚨', title: 'try/catch', desc: 'Wrap await calls to handle errors without crashing the app.' },
+                ]}
+                codeExamples={[
+                    { label: 'async/await basics', language: 'javascript', code: '// Old way — callback chains\nfunction getUser() {\n  return fetch("/api/user")\n    .then(res => res.json())\n    .then(data => console.log(data))\n    .catch(err => console.error(err));\n}\n\n// Modern way — reads top to bottom\nasync function getUser() {\n  try {\n    const res = await fetch("/api/user");\n    const data = await res.json();\n    console.log(data);\n    return data;\n  } catch (err) {\n    console.error("Failed:", err);\n  }\n}' },
+                    { label: 'Parallel requests', language: 'javascript', code: '// Run multiple requests at the same time\nasync function getDashboardData() {\n  try {\n    // Both fire simultaneously — faster than sequential!\n    const [users, posts] = await Promise.all([\n      fetch("/api/users").then(r => r.json()),\n      fetch("/api/posts").then(r => r.json()),\n    ]);\n    return { users, posts };\n  } catch (err) {\n    console.error("One request failed:", err);\n  }\n}\n\ngetDashboardData().then(console.log);' },
+                ]}
+                quizQuestion="What does 'await' do inside an async function?"
+                quizOptions={["Delays code by 1 second", "Pauses execution until the Promise resolves", "Creates a new Promise", "Runs code in parallel"]}
+                quizCorrectAnswer={1}
+            />} />
+            <Route path="/js/fetch" element={<GenericLesson
+                title="🌐 Fetch API" subject="JavaScript" path="/js/fetch"
+                prevPath="/js/async" prevLabel="Async / Await"
+                nextPath="/js/modules" nextLabel="ES6 Modules"
+                content="The Fetch API is built into every modern browser for making HTTP requests. It returns Promises, works perfectly with async/await, and replaces old XMLHttpRequest. Combined with useEffect in React, it's the standard way to load data."
+                editorLanguage="javascript"
+                conceptCards={[
+                    { icon: '📡', title: 'GET request', desc: 'Default — fetches data from a URL, returns a Promise.' },
+                    { icon: '📬', title: 'POST request', desc: 'Sends data with method: POST and a JSON body.' },
+                    { icon: '🔁', title: 'res.json()', desc: 'Always call this to read the response body as JSON.' },
+                ]}
+                codeExamples={[
+                    { label: 'GET request', language: 'javascript', code: 'async function getPosts() {\n  const res = await fetch("https://jsonplaceholder.typicode.com/posts");\n\n  if (!res.ok) throw new Error("Request failed");\n\n  const posts = await res.json();\n  console.log(posts[0]);\n  return posts;\n}\n\ngetPosts();' },
+                    { label: 'POST request', language: 'javascript', code: 'async function createPost(title, body) {\n  const res = await fetch("https://jsonplaceholder.typicode.com/posts", {\n    method: "POST",\n    headers: {\n      "Content-Type": "application/json",\n      "Authorization": "Bearer TOKEN"\n    },\n    body: JSON.stringify({ title, body, userId: 1 })\n  });\n\n  const newPost = await res.json();\n  console.log("Created:", newPost);\n  return newPost;\n}\n\ncreatePost("Hello World", "My first post");' },
+                    { label: 'In React (useEffect)', language: 'javascript', code: 'import { useState, useEffect } from "react";\n\nfunction Posts() {\n  const [posts, setPosts] = useState([]);\n  const [error, setError] = useState(null);\n\n  useEffect(() => {\n    async function load() {\n      try {\n        const res = await fetch("https://jsonplaceholder.typicode.com/posts?_limit=5");\n        const data = await res.json();\n        setPosts(data);\n      } catch (err) {\n        setError(err.message);\n      }\n    }\n    load();\n  }, []);\n\n  if (error) return <p>Error: {error}</p>;\n  return <ul>{posts.map(p => <li key={p.id}>{p.title}</li>)}</ul>;\n}' },
+                ]}
+                quizQuestion="Why do you call res.json() after fetch()?"
+                quizOptions={["To convert XML", "To read the response body as JSON", "To check response status", "To retry the request"]}
+                quizCorrectAnswer={1}
+            />} />
+            <Route path="/js/modules" element={<GenericLesson
+                title="📦 ES6 Modules" subject="JavaScript" path="/js/modules"
+                prevPath="/js/fetch" prevLabel="Fetch API"
+                content="ES6 modules let you split code across multiple files. export makes values available, import pulls them in. Every React component file uses this system — understanding it makes you a better developer."
+                editorLanguage="javascript"
+                conceptCards={[
+                    { icon: '📤', title: 'export', desc: 'Makes a value available for other files to import.' },
+                    { icon: '📥', title: 'import', desc: 'Pulls in a value from another module by file path.' },
+                    { icon: '⭐', title: 'default export', desc: 'One per file — imported without curly braces.' },
+                ]}
+                codeExamples={[
+                    { label: 'Named Exports', language: 'javascript', code: '// math.js\nexport const PI = 3.14159;\nexport function add(a, b) { return a + b; }\nexport function multiply(a, b) { return a * b; }\n\n// app.js\nimport { PI, add, multiply } from "./math.js";\n\nconsole.log(add(2, 3));      // 5\nconsole.log(multiply(4, 5)); // 20' },
+                    { label: 'Default Export', language: 'javascript', code: '// Button.jsx — one default export per file\nexport default function Button({ label, onClick }) {\n  return <button onClick={onClick}>{label}</button>;\n}\n\n// App.jsx — import without curly braces\nimport Button from "./Button";\nimport MyBtn from "./Button"; // Can rename freely\n\nfunction App() {\n  return <Button label="Click me" onClick={() => alert("Hi!")} />;\n}' },
+                    { label: 'Barrel File', language: 'javascript', code: '// components/index.js — re-export everything\nexport { default as Button } from "./Button";\nexport { default as Card } from "./Card";\nexport { default as Modal } from "./Modal";\n\n// App.jsx — clean single import\nimport { Button, Card, Modal } from "./components";\n// Instead of:\n// import Button from "./components/Button";\n// import Card from "./components/Card";' },
+                ]}
+                quizQuestion="How do you import a default export?"
+                quizOptions={["import { Button } from './Button'", "import Button from './Button'", "import * from './Button'", "require('./Button')"]}
+                quizCorrectAnswer={1}
+            />} />
+
             <Route path="/php/*" element={<div className="container"><h1>PHP Course Module</h1><p>Server-side programming content coming soon...</p></div>} />
 
+            <Route path="/search" element={<SearchPage />} />
             <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/router-guide" element={<ReactRouterGuide />} />

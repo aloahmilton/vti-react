@@ -41,6 +41,9 @@ export const courses: Course[] = [
             { name: 'Toggle State', path: '/react/toggle', icon: 'ToggleLeft' },
             { name: 'Form State', path: '/react/form', icon: 'ClipboardList' },
             { name: 'Navbar & Menu Links', path: '/react/navbar', icon: 'Menu' },
+            { name: 'Props', path: '/react/props', icon: 'Share2' },
+            { name: 'useEffect', path: '/react/useeffect', icon: 'Repeat' },
+            { name: 'useState Deep Dive', path: '/react/usestate', icon: 'Layers' },
             { name: 'React Guide', path: '/react/guide', icon: 'BookOpen' },
             { name: 'Router Guide', path: '/react/router', icon: 'Compass' }
         ]
@@ -72,7 +75,10 @@ export const courses: Course[] = [
         pages: [
             { name: 'Variables', path: '/js/variables', icon: 'Variable' },
             { name: 'Functions', path: '/js/functions', icon: 'FunctionSquare' },
-            { name: 'DOM Manipulation', path: '/js/dom', icon: 'MousePointer2' }
+            { name: 'DOM Manipulation', path: '/js/dom', icon: 'MousePointer2' },
+            { name: 'Async / Await', path: '/js/async', icon: 'Timer' },
+            { name: 'Fetch API', path: '/js/fetch', icon: 'Globe' },
+            { name: 'ES6 Modules', path: '/js/modules', icon: 'Package' }
         ]
     }
 ];
