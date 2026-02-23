@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
 import GenericLesson from '../home/GenericLesson';
 
-export const MysqlRoutes = () => (
+export const mysqlRoutes = (
     <>
         <Route path="/mysql/intro" element={<GenericLesson
             title="🗄️ Introduction to SQL" subject="MySQL" path="/mysql/intro"

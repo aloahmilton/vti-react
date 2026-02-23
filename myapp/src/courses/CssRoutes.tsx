@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
 import GenericLesson from '../home/GenericLesson';
 
-export const CssRoutes = () => (
+export const cssRoutes = (
     <>
         <Route path="/css/selectors" element={<GenericLesson
             title="🎯 Selectors" subject="CSS" path="/css/selectors"

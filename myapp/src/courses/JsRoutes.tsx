@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
 import GenericLesson from '../home/GenericLesson';
 
-export const JsRoutes = () => (
+export const jsRoutes = (
     <>
         <Route path="/js/variables" element={<GenericLesson
             title="📦 Variables" subject="JavaScript" path="/js/variables"

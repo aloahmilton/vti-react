@@ -37,7 +37,8 @@ export const courses: Course[] = [
             { name: 'Collaboration', path: '/github/collab', icon: 'Target', difficulty: 'Intermediate' },
             { name: 'GitHub Actions (CI/CD)', path: '/github/actions', icon: 'Zap', difficulty: 'Advanced' },
             { name: 'GitHub Pages', path: '/github/pages', icon: 'Globe', difficulty: 'Intermediate' },
-            { name: 'Advanced Workflows', path: '/github/workflows', icon: 'Workflow', difficulty: 'Advanced' }
+            { name: 'Advanced Workflows', path: '/github/workflows', icon: 'Workflow', difficulty: 'Advanced' },
+            { name: 'Security & Best Practices', path: '/github/security', icon: 'ShieldCheck', difficulty: 'Advanced' }
         ]
     },
     {

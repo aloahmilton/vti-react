@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
 import GenericLesson from '../home/GenericLesson';
 
-export const PhpRoutes = () => (
+export const phpRoutes = (
     <>
         <Route path="/php/basics" element={<GenericLesson
             title="🐘 PHP Basics" subject="PHP" path="/php/basics"

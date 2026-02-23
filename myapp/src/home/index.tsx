@@ -70,13 +70,13 @@ import ReactRouterGuide from '../lessons/react/ReactRouterGuide';
 import Services from './Services';
 import Contact from './Contact';
 import { courses, CONTACT_INFO } from './constants';
-import { HtmlRoutes } from '../courses/HtmlRoutes';
-import { CssRoutes } from '../courses/CssRoutes';
-import { JsRoutes } from '../courses/JsRoutes';
-import { ReactRoutes } from '../courses/ReactRoutes';
-import { PhpRoutes } from '../courses/PhpRoutes';
-import { MysqlRoutes } from '../courses/MysqlRoutes';
-import { GithubRoutes } from '../courses/GithubRoutes';
+import { htmlRoutes } from '../courses/HtmlRoutes';
+import { cssRoutes } from '../courses/CssRoutes';
+import { jsRoutes } from '../courses/JsRoutes';
+import { reactRoutes } from '../courses/ReactRoutes';
+import { phpRoutes } from '../courses/PhpRoutes';
+import { mysqlRoutes } from '../courses/MysqlRoutes';
+import { githubRoutes } from '../courses/GithubRoutes';
 import { useProgress } from '../components/useProgress';
 import { SettingsProvider } from '../contexts/SettingsContext';
 import { AuthProvider, useAuth } from '../contexts/AuthContext';
@@ -291,22 +291,14 @@ function HomeRoutes() {
             <Route path="/dashboard" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
 
-            {/* Modular Course Routes will be added here */}
-
-
-
-
-
-
-
             {/* Modular Course Routes */}
-            <HtmlRoutes />
-            <CssRoutes />
-            <JsRoutes />
-            <ReactRoutes />
-            <PhpRoutes />
-            <MysqlRoutes />
-            <GithubRoutes />
+            {htmlRoutes}
+            {cssRoutes}
+            {jsRoutes}
+            {reactRoutes}
+            {phpRoutes}
+            {mysqlRoutes}
+            {githubRoutes}
 
             <Route path="/search" element={<SearchPage />} />
             <Route path="/services" element={<Services />} />

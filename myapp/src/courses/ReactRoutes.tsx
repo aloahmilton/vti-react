@@ -8,7 +8,7 @@ import NavbarLesson from '../lessons/react/NavbarLesson';
 import ReactFunctionsGuide from '../lessons/react/ReactFunctionsGuide';
 import ReactRouterGuide from '../lessons/react/ReactRouterGuide';
 
-export const ReactRoutes = () => (
+export const reactRoutes = (
     <>
         <Route path="/react/number" element={<NumberState />} />
         <Route path="/react/input" element={<InputState />} />

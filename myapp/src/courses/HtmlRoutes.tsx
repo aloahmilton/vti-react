@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
 import GenericLesson from '../home/GenericLesson';
 
-export const HtmlRoutes = () => (
+export const htmlRoutes = (
     <>
         <Route path="/html/structure" element={<GenericLesson
             title="🏗️ Structure" subject="HTML" path="/html/structure"
