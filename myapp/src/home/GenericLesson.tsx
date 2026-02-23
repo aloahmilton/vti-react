@@ -9,6 +9,8 @@ import CodeEditor from '../components/CodeEditor/CodeEditor';
 import './style.css';
 import './Lesson.css';
 
+import type { Difficulty } from './constants';
+
 interface CodeExample {
     label: string;
     code: string;
@@ -26,6 +28,7 @@ interface GenericLessonProps {
     subject: string;
     content: string;
     path: string;
+    difficulty?: Difficulty;
     prevPath?: string;
     nextPath?: string;
     nextLabel?: string;
@@ -46,6 +49,7 @@ function GenericLesson({
     subject,
     content,
     path,
+    difficulty = 'Beginner',
     prevPath,
     nextPath,
     nextLabel = 'Next',
@@ -96,7 +100,12 @@ function GenericLesson({
             <header className="lesson-header">
                 <div className="lesson-header-inner">
                     <div className="lesson-header-title">
-                        <h1>{title}</h1>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                            <h1>{title}</h1>
+                            <span className={`difficulty-badge ${difficulty.toLowerCase()}`}>
+                                {difficulty}
+                            </span>
+                        </div>
                         <p>{subject} Module</p>
                     </div>
                     <div className="lesson-voice-controls">
