@@ -107,31 +107,31 @@ export default function SearchPage() {
             </div>
 
             {/* Search bar */}
-            <div style={{ position: 'relative', marginBottom: 32, maxWidth: 500 }}>
-                <Search
-                    size={16}
-                    style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', pointerEvents: 'none' }}
-                />
+            <div style={{ position: 'relative', marginBottom: 24, maxWidth: 400 }}>
                 <input
                     type="text"
                     value={query}
                     onChange={e => setQuery(e.target.value)}
-                    placeholder='Search lessons...'
+                    placeholder='Search...'
                     autoFocus
                     style={{
                         width: '100%', boxSizing: 'border-box',
-                        padding: '10px 12px 10px 38px',
-                        fontSize: '0.9rem', borderRadius: 6,
-                        border: '1px solid var(--border)', background: 'var(--surface)',
-                        color: 'var(--text-main)', outline: 'none', transition: 'border-color 0.2s',
+                        padding: '8px 0',
+                        fontSize: '0.9rem',
+                        border: 'none',
+                        borderBottom: '1px solid var(--border)',
+                        background: 'transparent',
+                        color: 'var(--text-main)',
+                        outline: 'none',
+                        transition: 'border-color 0.2s',
                     }}
-                    onFocus={e => e.target.style.borderColor = '#000'}
-                    onBlur={e => e.target.style.borderColor = 'var(--border)'}
+                    onFocus={e => e.target.style.borderBottomColor = '#000'}
+                    onBlur={e => e.target.style.borderBottomColor = 'var(--border)'}
                 />
                 {query && (
                     <button
                         onClick={() => setQuery('')}
-                        style={{ position: 'absolute', right: 16, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '1.1rem' }}
+                        style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '1.2rem' }}
                     >×</button>
                 )}
             </div>
