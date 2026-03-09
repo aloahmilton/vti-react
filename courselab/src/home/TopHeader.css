@@ -26,7 +26,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    min-width: 200px;
+    flex-shrink: 0;
 }
 
 .headerLogo {
@@ -45,10 +45,11 @@
 }
 
 .logoText {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 800;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .mobileMenuBtn {
@@ -101,7 +102,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    min-width: 200px;
+    flex-shrink: 0;
     justify-content: flex-end;
 }
 
