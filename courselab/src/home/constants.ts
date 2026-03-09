@@ -29,15 +29,16 @@ export const courses: Course[] = [
         name: 'GitHub',
         icon: 'Github',
         pages: [
-            { name: 'Git Basics', path: '/github/basics', icon: 'Code', difficulty: 'Beginner' },
-            { name: 'Repositories', path: '/github/repos', icon: 'Box', difficulty: 'Beginner' },
+            { name: 'Git Basics', path: '/github/basics', icon: 'Settings', difficulty: 'Beginner' },
+            { name: 'Repositories', path: '/github/repos', icon: 'Globe', difficulty: 'Beginner' },
             { name: 'Commits & History', path: '/github/commits', icon: 'History', difficulty: 'Beginner' },
-            { name: 'Branches & Merging', path: '/github/branches', icon: 'GitBranch', difficulty: 'Intermediate' },
+            { name: 'Branch Management', path: '/github/branches', icon: 'GitBranch', difficulty: 'Intermediate' },
+            { name: 'Professional Workflow', path: '/github/workflow', icon: 'Shuffle', difficulty: 'Intermediate' },
             { name: 'Pull Requests', path: '/github/pr', icon: 'GitPullRequest', difficulty: 'Intermediate' },
-            { name: 'Collaboration', path: '/github/collab', icon: 'Target', difficulty: 'Intermediate' },
+            { name: 'Collaboration', path: '/github/collab', icon: 'Users', difficulty: 'Intermediate' },
             { name: 'GitHub Actions (CI/CD)', path: '/github/actions', icon: 'Zap', difficulty: 'Advanced' },
-            { name: 'GitHub Pages', path: '/github/pages', icon: 'Globe', difficulty: 'Intermediate' },
-            { name: 'Advanced Workflows', path: '/github/workflows', icon: 'Workflow', difficulty: 'Advanced' },
+            { name: 'GitHub Pages', path: '/github/pages', icon: 'Monitor', difficulty: 'Intermediate' },
+            { name: 'Advanced Workflows', path: '/github/workflows', icon: 'Layers', difficulty: 'Advanced' },
             { name: 'Security & Best Practices', path: '/github/security', icon: 'ShieldCheck', difficulty: 'Advanced' }
         ]
     },

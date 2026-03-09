@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Wireless Headphones",
+    "price": 15000,
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600"
+  },
+  {
+    "id": 2,
+    "name": "Smart Watch",
+    "price": 22000,
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"
+  },
+  {
+    "id": 3,
+    "name": "Bluetooth Speaker",
+    "price": 12000,
+    "image": "https://media.istockphoto.com/id/1412240771/photo/headphones-on-white-background.jpg?s=1024x1024&w=is&k=20&c=UyOQrYwxx61kI5TwmTCye0UUvDakbeR9W_jWk1AU0Fk="
+  },
+  {
+    "id": 4,
+    "name": "Gaming Mouse",
+    "price": 8000,
+    "image": "https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?w=600"
+  },
+  {
+    "id": 5,
+    "name": "Mechanical Keyboard",
+    "price": 18000,
+    "image": "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=600"
+  },
+  {
+    "id": 6,
+    "name": "Laptop Stand",
+    "price": 7000,
+    "image": "https://images.unsplash.com/photo-1587302912306-cf1ed9c30be4?w=600"
+  },
+  {
+    "id": 7,
+    "name": "USB-C Hub",
+    "price": 9000,
+    "image": "https://images.unsplash.com/photo-1625842268584-8f3bf9ff16a0?w=600"
+  },
+  {
+    "id": 8,
+    "name": "Portable SSD",
+    "price": 25000,
+    "image": "https://images.unsplash.com/photo-1595113316349-9fa4eb24f884?w=600"
+  },
+  {
+    "id": 9,
+    "name": "Noise Cancelling Earbuds",
+    "price": 20000,
+    "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600"
+  },
+  {
+    "id": 10,
+    "name": "Webcam HD",
+    "price": 11000,
+    "image": "https://images.unsplash.com/photo-1621251392942-bf2384918e7e?w=600"
+  }
+]
