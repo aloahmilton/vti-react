@@ -35,8 +35,8 @@ export const githubRoutes = (
                 { icon: '🔃', title: 'Clone', desc: 'git clone downloads a remote repo to your machine.' },
             ]}
             codeExamples={[
-                { label: 'Remote Setup', language: 'bash', code: `# Link local to remote\ngit remote add origin https://github.com/user/repo.git\n\n# Push to GitHub for first time\ngit push -u origin main\n\n# Pull latest changes\ngit pull origin main` },
-                { label: 'Clone', language: 'bash', code: `# Clone a repository\ngit clone https://github.com/user/repo.git\n\n# Clone into a specific folder\ngit clone https://github.com/user/repo.git my-folder` },
+                { label: 'Remote Setup', language: 'bash', code: `# Link local to remote\ngit remote add origin https://github.com/aloahmilton/vticourselab.git\n\n# Push to GitHub for first time\ngit push -u origin main\n\n# Pull latest changes\ngit pull origin main` },
+                { label: 'Clone', language: 'bash', code: `# Clone a repository\ngit clone https://github.com/aloahmilton/vticourselab.git\n\n# Clone into a specific folder\ngit clone https://github.com/aloahmilton/vticourselab.git my-folder` },
             ]}
             quizQuestion="How do you link a local repository to a remote one?"
             quizOptions={["git link remote", "git remote add origin", "git sync", "git connect"]}

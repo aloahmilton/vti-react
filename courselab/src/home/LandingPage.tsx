@@ -23,7 +23,7 @@ function LandingPage() {
                             {t('landing.start_cta')} <ChevronRight size={20} />
                         </Link>
                         <a
-                            href="https://github.com/aloahmilton"
+                            href="https://github.com/aloahmilton/vticourselab"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="landing-cta-secondary"
